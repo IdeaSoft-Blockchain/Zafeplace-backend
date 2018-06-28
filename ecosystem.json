@@ -1,0 +1,45 @@
+{
+  "apps": [
+    {
+      "name": "zafeplace",
+      "script": "server.js",
+      "watch": [
+        "server.js",
+        "app",
+        "libs",
+        "db",
+        "migrations"
+      ],
+      "ignore_watch": [
+        "node_modules",
+        ".git"
+      ],
+      "cwd": "./",
+      "env": {
+        "NODE_PATH": "./",
+        "NODE_ENV": "development",
+        "GOOGLE_APPLICATION_CREDENTIALS": "Zafeplace-cd39042cf237.json"
+      },
+      "args": [
+        "--color"
+      ],
+      "autorestart": true,
+      "error_file": "./logs/err.log",
+      "out_file": "./logs/out.log"
+    }
+  ],
+  "deploy": {
+    "development": {
+      "key": "/home/ideasoft/.ssh/ssh_zafeplace",
+      "user": "ideasoft",
+      "host": [
+        "35.233.100.41"
+      ],
+      "ref": "origin/dev",
+      "repo": "git@gitlab.com:zafeplace-org/Server.git -b dev",
+      "path": "/home/ideasoft/zafeplace/",
+      "post-setup": "npm install; git clone https://github.com/swagger-api/swagger-ui.git; mkdir logs; sudo pm2 startOrRestart ecosystem.json",
+      "post-deploy": "ls ;npm install; sudo pm2 startOrRestart ecosystem.json"
+    }
+  }
+}

@@ -1,0 +1,1 @@
+module.exports = require(`./env_variables/${process.env.NODE_ENV || 'development'}`);
